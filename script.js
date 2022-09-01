@@ -21,6 +21,10 @@ const resetHandler = () => {
     email.value = "";
     instructor.value = "";
     assignment.value = "";
+
+    // Scroll to the top
+    document.body.scrollTop = 0; // safari
+    document.documentElement.scrollTop = 0; // chrome firefox ie opera
 }
 
 const onSelectHandler = (e) => {
@@ -229,7 +233,7 @@ const generateFeedback = () => {
 
         let lineTwo = document.createElement("p");
         lineTwo.setAttribute("class", "score");
-        lineTwo.innerText = "Points Deducted" + " " + element.children[0].innerText;
+        lineTwo.innerHTML = "&#x2022 " + "Points Deducted" + " " + element.children[0].innerText;
         modalText.appendChild(lineTwo);
 
         let lineThree = document.createElement("p");
