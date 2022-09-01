@@ -246,27 +246,3 @@ const generateFeedback = () => {
 closer.onclick = () => {
     modal.style.display = "none";
 }
-
-/*
-These are the form keys that are needed to populate our google form
-Form url and data
-https://docs.google.com/forms/d/e/1FAIpQLSdXrgvOVpuQJ30znBiM8k0i1TpzhAdoYzRzuR3Pi2Rq045qLg/formResponse
-
-1 entry.1845460757=999-StudentEmail
-2 entry.1164957749=999-Instructor
-3 entry.489152719=999-AssignmentName
-4 entry.131994712=0
-5 entry.744897574=0.0
-6 entry.1380845034=0
-7 entry.768631213=0
-8 entry.987942806=0
-9 entry.462034436=0
-10 entry.136172028=0
-11 entry.1580908084=0
-12 entry.669148456=0
-13 entry.1189209658=0
-14 entry.112870598=0
-15 entry.2102068348=0
-16 entry.778378546=0
-
-*/
