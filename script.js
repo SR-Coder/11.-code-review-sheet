@@ -8,10 +8,17 @@ let allSelectable = document.querySelectorAll(".selectable");
 let score = document.getElementById("score");
 let selected = document.querySelectorAll(".selected");
 let modal = document.getElementById("myModal");
+let editModal = document.getElementById("editModal");
 let closer = document.getElementsByClassName("close")[0];
+let editCloser = document.getElementsByClassName("editClose")[0];
 let modalText = document.getElementById("modal-text");
+let points = document.getElementById("points");
+let feedback = document.getElementById("feedback");
 const formAddress = "https://docs.google.com/forms/d/e/1FAIpQLSdXrgvOVpuQJ30znBiM8k0i1TpzhAdoYzRzuR3Pi2Rq045qLg/formResponse"
 let totalScore = 10;
+
+let targetElement = null;
+
 
 const resetHandler = () => {
     allSelectable.forEach(element => {
@@ -25,6 +32,9 @@ const resetHandler = () => {
     // Scroll to the top
     document.body.scrollTop = 0; // safari
     document.documentElement.scrollTop = 0; // chrome firefox ie opera
+    setTimeout(() => {
+        location.reload();
+    }, 500);
 }
 
 const onSelectHandler = (e) => {
@@ -58,11 +68,41 @@ const onSelectHandler = (e) => {
     score.innerText = tempScore.toFixed(2);
 }
 
-// Adds an event listener to each element that has the
+const rightClickHandler =(e) =>{
+    targetElement = e.target;
+    e.preventDefault();
+    console.log(e.target.children[0].innerText);
+    points.value = e.target.children[0].innerText;
+    feedback.value = e.target.children[1].innerText;
+    editModal.style.display = "block";
+    onSelectHandler(e);
+    return false
+}
+
+// Adds an event listener to each element that has the for the click
 // selectable class name
 allSelectable.forEach(element => {
-    element.addEventListener('click', onSelectHandler)
+    element.addEventListener('click', onSelectHandler);
+    element.addEventListener("contextmenu", (e)=>{
+        rightClickHandler(e);
+        return false;
+    })
 });
+
+const updateFeedback = (e) =>{
+    let thesePoints = e.target.parentElement.children[0].value;
+    let thisFeedback = e.target.parentElement.children[1].value;
+    console.log(targetElement.children[0]);
+
+    targetElement.children[0].innerText = thesePoints;
+    targetElement.children[1].innerText = thisFeedback;
+
+    targetElement = null;
+    points.value = "";
+    feedback.value = "";
+    targetElement = null;
+    editModal.style.display = "none";
+}
 
 const onSubmitHandler = () => {
     // console.log(selected.length);
@@ -243,10 +283,17 @@ const generateFeedback = () => {
         
 
     });
-    myModal.style.display = "block";
+    modal.style.display = "block";
 }
 
 // Close the modal for the info
 closer.onclick = () => {
     modal.style.display = "none";
+}
+
+editCloser.onclick = () => {
+    points.value = "";
+    feedback.value = "";
+    targetElement = null;
+    editModal.style.display = "none";
 }
